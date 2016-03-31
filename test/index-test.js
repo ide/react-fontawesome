@@ -5,6 +5,7 @@ import jsdom from 'mocha-jsdom'
 import FontAwesome from '../src'
 
 describe('FontAwesome', () => {
+  let component
   let classes
 
   // Use mocha-jsdom.
@@ -24,7 +25,7 @@ describe('FontAwesome', () => {
       rotate: 180,
       stack: '1x',
     }
-    const component = React.render(<FontAwesome {...props} />, document.body)
+    component = React.render(<FontAwesome {...props} />, document.body)
     classes = component.getDOMNode().className.split(' ')
   })
 
@@ -46,5 +47,9 @@ describe('FontAwesome', () => {
     expectedClasses.forEach(className => {
       expect(classes.indexOf(className)).to.be.above(-1)
     })
+  })
+
+  it('the "name" prop is not rendered in the markup', () => {
+    expect(component.getDOMNode().name).to.be.undefined
   })
 })
